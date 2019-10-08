@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assignment 4</title>
+	<style>
+		h1 {
+			font-size: 18px; 
+			font-weight: none;
+		}
+		form {
+			font-weight: bold; 
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+
+	// Generate 1 Lucky Ball number 
+	var random_lucky = Math.floor(Math.random() * 18) + 1; 
+	var array = [];
+
+	// Generate 5 random numbers and store all 6 numbers in an array 
+	function generate() 
+	{
+		for (var i = 0; i < 5; i++) 
+		{
+			array[i] = Math.floor(Math.random() * 48) + 1;
+		}
+
+		// Show randomly generated numbers 
+		document.write("<center><h1>Randomly generated numbers are </h1>"); 
+		for (var i = 0; i < 5; i++) {
+			document.write(array[i] + " "); 
+		}
+		document.write("</center>");
+
+		// Sort the numbers in the array 
+		array.sort(function(array, b) {return array-b}); 
+		array[5] = random_lucky;
+
+		// Show randomly generated numbers SORTED
+		document.write("<center><h1>Sorted numbers are </h1>"); 
+		for (var i = 0; i < 5; i++) {
+			document.write(array[i] + " "); 
+		}
+		document.write("</center>");
+	}
+
+	// Display the numbers in the array again 
+	for (var i = 0; i < array.length; i++) {
+		document.write(numbers[i]); 
+	}
+
+	generate();
+
+	// Function to read data, compare with your pick, determine winning payout of your pick
+	function payout() 
+	{
+
+		// Read data 
+		var user_nums = document.getElementById("inputNums").value; 
+		var user_num_lucky = document.getElementById("inputLucky").value; 
+
+		// Break string into numbers 
+		var user_values = user_nums.split(" ");
+		// Add user_num_lucky to end of new array called user_values
+		user_values[5] = user_num_lucky;
+
+		// Compare picks 
+		var count_matches = 0; 
+		for (var i = 0; i < 5; i++) {
+			for (var j = 0; j < 5; j++) {
+				if (array[i] == user_values[j]) {
+					count_matches++; 
+				}
+			}
+		}
+
+		var lucky_nums_match = 0;
+		if (random_lucky == user_num_lucky) {
+			lucky_nums_match = 1; 
+		}
+		else {
+			lucky_nums_match = 0; 
+		}
+
+		if (count_matches == 5 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $7,000 a WEEK for LIFE!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 5 && lucky_nums_match == 0) {
+			document.write("<center><h1>You win $25,000 a YEAR for LIFE!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 4 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $5,000!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 4 && lucky_nums_match == 0) {
+			document.write("<center><h1>You win $200!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 3 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $150!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 3 && lucky_nums_match == 0) {
+			document.write("<center><h1>You win $20!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 2 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $25!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 2 && lucky_nums_match == 0) {
+			document.write("<center><h1>You win $3!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 1 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $6!!!</h1>"); 
+			document.write("</center");
+		}
+		else if (count_matches == 0 && lucky_nums_match == 1) {
+			document.write("<center><h1>You win $4!!!</h1>"); 
+			document.write("</center");
+		}
+		else {
+			document.write("You lose :("); 
+			document.write("</center");
+		}
+	}
+	</script>
+
+	<center> <form>
+		<br>
+		Enter 5 numbers separated by a space: <br>
+		<input type = "text" name = "inputNums" id = "inputNums"><br>
+		<br>
+
+		<br>
+		<script type="text/javascript">
+			document.write("<h1>Random Lucky Ball number is </h1>" + random_lucky);
+		</script>
+		<br>
+		<br>
+		Enter a Lucky Ball number: <br>
+		<input type = "text" name = "inputLucky" id = "inputLucky"><br>
+		<br>
+		<br>
+		<input type = "submit" value = "Submit" onclick = "payout()">
+	</form>
+
+</body>
+</html>
