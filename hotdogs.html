@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Joe's Hotdogs</title>
+	<style>
+		body {
+			text-align: center;
+			font-size: 30px;
+		}
+		h1 {
+			text-align: center;
+			font-size: 30px;
+			text-decoration: underline;
+			font-weight: bolder;
+		}
+		h2 {
+			text-align: center;
+			font-size: 20px;
+		}
+		p {
+			text-align: center;
+			font-size: 25px;
+			font-weight: bold; 
+		}
+		form {
+			text-align: center;
+			display: inline-block;
+		}
+		input[type=text] {
+			box-sizing: border-box;
+			border: 1px solid;
+			padding: 8px 8px; 
+			border-color: #FF6347;
+			border-width: 2px;
+		}
+	</style>
+</head>
+<body>
+	<h1> Welcome to Joe's Hotdog Stand! </h1>
+	<br>
+	<p> Please place your order: </p>
+	<br>
+	<form id = "order">
+		<h2> # of hotdogs ($3.25 each): </h2>
+		<input type = "text" name = "hotdogs" id = "hotdogs">
+		<h2> # of french fries ($2.00 each): </h2>
+		<input type = "text" name = "fries" id = "fries">
+		<h2> # of drinks ($1.50 each): </h2>
+		<input type = "text" name = "drinks" id = "drinks"><br>
+		<br>
+		<br>
+		<h2> Don't forget about Joe's Special - get 10% off your order of $20 or
+			more! 
+		<br>
+		<br>
+		<br>
+		<button type = "submit" value = "order" onclick = "order()"> Order </button><br>
+	</form>
+  
+	<script type="text/javascript">
+
+		function order()
+		{
+			var num_hotdogs = document.getElementById("hotdogs").value;
+			var num_fries = document.getElementById("fries").value; 
+			var num_drinks = document.getElementById("drinks").value; 
+
+			// associative arrays
+			var food_prices = {"hotdogs": 3.25, "fries": 2.00, "drinks": 1.50};
+			var food_quantities = {"hotdogs": num_hotdogs, "fries": num_fries, 
+				"drinks": num_drinks}
+			var total_price = (food_prices['hotdogs'] * food_quantities['hotdogs']) + 
+				(food_prices['fries'] * food_quantities['fries']) + 
+				(food_prices['drinks'] * food_quantities['drinks']);
+
+			// discount customer receives
+			var discount_amount; 
+			// final cost (includes discount and tax)
+			var final_cost; 
+			// tax amount 
+			var tax_amount; 
+
+			// check if customer gets discount 
+			if (discount(total_price) == true) {
+				discount_amount = total_price * 0.10; 
+			}
+			else { 
+				discount_amount = 0; 
+			}
+
+			// total cost (including discount) 
+			final_cost = total_price - discount_amount; 
+
+			// Mass meal tax
+			tax_amount = tax(final_cost); 
+			final_cost = final_cost + tax_amount; 
+
+			document.write("<center><br><b><u>View your order: </u><br><br><br>" + 
+				"# hotdogs ordered: </b>" + num_hotdogs + "<br><br>" +
+				"<b># french fries ordered: </b>" + num_fries + "<br><br>" + 
+				"<b># drinks ordered: </b>" + num_drinks + "<br><br>" + 
+				"<b>Subtotal:</b> $" + total_price.toFixed(2) + "<br><br>" + 
+				"<b>Discount:</b> $" + discount_amount.toFixed(2) + "<br><br>" + 
+				"<b>Tax:</b> $" + tax_amount.toFixed(2) + "<br><br><br>" + 
+				"<b>The total cost of your order is:<br> $" + final_cost.toFixed(2) + "<br><br>")
+		}
+
+		function discount(cost)
+		{
+			if (cost >= 20) {
+				return true; 
+			}
+			else { 
+				return false; 
+			}
+		}
+
+		function tax(cost) 
+		{
+			cost = cost * .0625;
+			return cost; 
+		}
+	</script>
+</body>
+</html>
